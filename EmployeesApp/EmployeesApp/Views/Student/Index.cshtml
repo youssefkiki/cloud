@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Student>
+
+
+
+<h1>All Students</h1>
+
+<a asp-action="Create" class="btn btn-primary">Create New Student</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => model.StudentAge)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => model.StudentGender)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => model.StudentEmail)
+        </tr>
+        <tr>
+            @Html.DisplayNameFor(model => model.Departmentid)
+        </tr>
+       
+    </thead>
+
+    <tbody>
+       @foreach(var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentId)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departmentid)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentId}, new { onclick = "return confirm('Are you sure you want to delete this student ?');"})
+
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>

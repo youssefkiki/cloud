@@ -1,0 +1,59 @@
+name: dockercompose9490727797147749372
+services:
+  employeeappdb:
+    container_name: app-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: password@12345#
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    networks:
+      employeesapp: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8002"
+      protocol: tcp
+  employeesapp:
+    build:
+      context: C:\Users\Blu-Ray\source\repos\EmployeesApp
+      dockerfile: EmployeesApp\Dockerfile
+    container_name: dockercompose9490727797147749372
+    depends_on:
+      employeeappdb:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DB_HOST: employeeappdb
+      DB_MSSQL_SA_PASSWORD: password@12345#
+      DB_NAME: EmployeesApp
+    image: employeesapp
+    networks:
+      employeesapp: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Blu-Ray\AppData\Roaming/Microsoft/UserSecrets
+      target: C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Blu-Ray\AppData\Roaming/ASP.NET/Https
+      target: C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  employeesapp:
+    name: dockercompose9490727797147749372_employeesapp

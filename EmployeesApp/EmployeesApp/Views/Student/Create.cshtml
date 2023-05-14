@@ -1,0 +1,37 @@
+﻿@model Student
+
+@{ 
+    ViewBag.Title = Model != null ? "Edit" : "Create";
+    }
+
+<h2>
+    @ViewBag.Title Student 
+</h2>
+
+<form asp-action=@ViewBag.Title>
+    <div asp-validation-summary=All></div>
+
+    <label asp-for="StudentId" class="control-label"></label>
+    <input asp-for="StudentId" class="form-control" readonly />
+
+    <label asp-for="StudentName" class="control-label"></label>
+    <input asp-for="StudentName" class="form-control" />
+
+    <label asp-for="StudentAge" class="control-label"></label>
+    <input asp-for="StudentAge" class="form-control" />
+
+    <label asp-for="StudentGender" class="control-label"></label>
+    <input asp-for="StudentGender" class="form-control" />
+
+    <label asp-for="StudentEmail" class="control-label"></label>
+    <input asp-for="StudentEmail" class="form-control" />
+
+    <label asp-for="Departmentid" class="control-label"></label>
+    <select asp-for="Departmentid" asp-items="@(new SelectList(ViewBag.Departments, "DepartmentId", "DepartmentName"))" class="form-control">
+        <option value="">Select Department</option>
+    </select>
+
+    <input type="submit" value="Save" class="btn btn-primary"/>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+
+</form>
